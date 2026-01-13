@@ -32,6 +32,47 @@ def load_game_assets(category):
             assets["O"] = file
     return assets
 
+# ----------- Game functions -----------
+
+def next_turn(row, col):
+    """
+    Handle a player clicking on (row, col).
+    - If the chosen cell is empty and there is no winner, place the current player's symbol.
+    - Then check for a winner or tie and update UI/state accordingly.
+    - Finally switch the current player and update the player label.
+    """
+    global player
+    if cell_buttons[row][col]['text'] == '' and not check_win():
+        # place the current player's symbol (image + text)
+        if player == 'X':
+            cell_buttons[row][col].config(image=x_img, text='X')
+        else:
+            cell_buttons[row][col].config(image=o_img, text='O')
+
+        # check for a winner
+        winner = check_win()
+        if winner:
+            result_text.set(f"{winner} Wins!")
+            # update scores
+            if winner == 'X':
+                user_score.set(user_score.get() + 1)
+            else:
+                computer_score.set(computer_score.get() + 1)
+            score_text.set(f"You: {user_score.get()} Computer: {computer_score.get()}")
+            return
+
+        # check for tie (no empty spaces)
+        if not check_empty_spaces():
+            result_text.set("Tie!")
+            for r in range(3):
+                for c in range(3):
+                    cell_buttons[r][c].config(bg='red')
+            return
+
+        # switch player and update label
+        player = 'O' if player == 'X' else 'X'
+        player_label.config(text=f"Player Turn: {player}")
+
 
 
 # ----------- GUI -----------
