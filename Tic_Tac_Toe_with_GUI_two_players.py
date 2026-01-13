@@ -45,3 +45,19 @@ user_score = tk.IntVar(value=0)
 computer_score = tk.IntVar(value=0)
 result_text = tk.StringVar(value="")
 score_text = tk.StringVar(value=f"You: {user_score.get()} Computer: {computer_score.get()}")
+
+# -------- Frame 1 (labels + restart) --------
+top_frame = tk.Frame(window)
+top_frame.pack(pady=20)
+
+result_label = tk.Label(top_frame, textvariable=score_text, font=("Arial", 16, "bold"))
+result_label.pack()
+
+player_label = tk.Label(top_frame, text=f"Player Turn: {player}", font=("Arial", 20))
+player_label.pack(pady=10)
+
+winner_label = tk.Label(top_frame, textvariable=result_text, font=("Arial", 20))
+winner_label.pack(pady=10)
+
+restart_button = tk.Button(top_frame, text="restart", font=("Arial", 20), command=start_new_game)
+restart_button.pack(pady=10)
