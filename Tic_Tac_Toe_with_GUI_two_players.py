@@ -17,6 +17,22 @@ from PIL import Image, ImageTk
 # 7) The GUI runs inside window.mainloop().
 # ================================================================
 
+def load_game_assets(category):
+    """
+    Search for PNG images inside the assets/<category>/ folder and return a dict
+    mapping "X" and "O" to file paths when possible (case-insensitive).
+    """
+    pattern = f"assets/{category}/*.png"
+    files = glob.glob(pattern)
+    assets = {}
+    for file in files:
+        if "x" in file.lower():
+            assets["X"] = file
+        elif "o" in file.lower():
+            assets["O"] = file
+    return assets
+
+
 
 # ----------- GUI -----------
 
