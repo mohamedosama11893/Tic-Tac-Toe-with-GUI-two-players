@@ -109,7 +109,31 @@ def check_win():
         return cell_buttons[0][2]['text']
     return False
 
+def check_empty_spaces():
+    """
+    Return True if there is at least one empty cell, otherwise False.
+    """
+    for r in range(3):
+        for c in range(3):
+            if cell_buttons[r][c]['text'] == '':
+                return True
+    return False
 
+
+def start_new_game():
+    """
+    Choose a random starting player, update the player label and recreate
+    the 3x3 button grid (resetting each button).
+    """
+    global player
+    player = random.choice(players)
+    player_label.config(text=f"Player Turn: {player}")
+    for r in range(3):
+        for c in range(3):
+            btn = tk.Button(bottom_frame, text="", font=("Arial", 50, "bold"), width=4, height=1,
+                            command=lambda rr=r, cc=c: next_turn(rr, cc))
+            cell_buttons[r][c] = btn
+            btn.grid(row=r, column=c, sticky="nsew")
 
 # ----------- GUI -----------
 
