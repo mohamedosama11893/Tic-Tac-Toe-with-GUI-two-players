@@ -72,6 +72,42 @@ def next_turn(row, col):
         # switch player and update label
         player = 'O' if player == 'X' else 'X'
         player_label.config(text=f"Player Turn: {player}")
+        
+def check_win():
+    """
+    Return 'X' or 'O' if a winning line is found; otherwise return False.
+    Highlights winning cells by changing their background color.
+    """
+    # rows
+    for r in range(3):
+        if (cell_buttons[r][0]['text'] != '' and
+                cell_buttons[r][0]['text'] == cell_buttons[r][1]['text'] == cell_buttons[r][2]['text']):
+            cell_buttons[r][0].config(bg='cyan')
+            cell_buttons[r][1].config(bg='cyan')
+            cell_buttons[r][2].config(bg='cyan')
+            return cell_buttons[r][0]['text']
+    # columns
+    for c in range(3):
+        if (cell_buttons[0][c]['text'] != '' and
+                cell_buttons[0][c]['text'] == cell_buttons[1][c]['text'] == cell_buttons[2][c]['text']):
+            cell_buttons[0][c].config(bg='cyan')
+            cell_buttons[1][c].config(bg='cyan')
+            cell_buttons[2][c].config(bg='cyan')
+            return cell_buttons[0][c]['text']
+    # diagonals
+    if (cell_buttons[0][0]['text'] != '' and
+            cell_buttons[0][0]['text'] == cell_buttons[1][1]['text'] == cell_buttons[2][2]['text']):
+        cell_buttons[0][0].config(bg='cyan')
+        cell_buttons[1][1].config(bg='cyan')
+        cell_buttons[2][2].config(bg='cyan')
+        return cell_buttons[0][0]['text']
+    if (cell_buttons[0][2]['text'] != '' and
+            cell_buttons[0][2]['text'] == cell_buttons[1][1]['text'] == cell_buttons[2][0]['text']):
+        cell_buttons[0][2].config(bg='cyan')
+        cell_buttons[1][1].config(bg='cyan')
+        cell_buttons[2][0].config(bg='cyan')
+        return cell_buttons[0][2]['text']
+    return False
 
 
 
