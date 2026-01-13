@@ -61,3 +61,24 @@ winner_label.pack(pady=10)
 
 restart_button = tk.Button(top_frame, text="restart", font=("Arial", 20), command=start_new_game)
 restart_button.pack(pady=10)
+
+# -------- Frame 2 (game board) --------
+bottom_frame = tk.Frame(window)
+bottom_frame.pack()
+
+# buttons matrix (initialized as None placeholders)
+cell_buttons = [[None for _ in range(3)] for _ in range(3)]
+for row in range(3):
+    for col in range(3):
+        btn = tk.Button(bottom_frame, text="", font=("Arial", 50, "bold"), width=4, height=1,
+                        command=lambda r=row, c=col: next_turn(r, c))
+        cell_buttons[row][col] = btn
+        btn.grid(row=row, column=col, sticky="nsew")
+
+# configure row/column weights and minimum sizes so buttons keep a good size
+for i in range(3):
+    bottom_frame.grid_rowconfigure(i, weight=1, minsize=150)
+    bottom_frame.grid_columnconfigure(i, weight=1, minsize=200)
+
+# -------- Main loop --------
+window.mainloop()
